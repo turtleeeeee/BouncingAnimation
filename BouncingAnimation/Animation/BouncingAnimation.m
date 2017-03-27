@@ -10,7 +10,7 @@
 
 #define BOUNCING_BACK_RATIO 1.0/3.0
 #define BOUNCING_BACK_TIMES 3
-#define DURATION 0.8
+#define DURATION 1
 
 @interface BouncingAnimation ()
 
@@ -104,15 +104,16 @@
 - (void)__CGFloatTypeValuesCalculation {
     CGFloat fromf = [_fromValue floatValue];
     CGFloat tof = [_toValue floatValue];
-    CGFloat temp = fromf;
+    CGFloat temp = fromf - tof;
     NSMutableArray *values = [NSMutableArray array];
     for (int i = 0; i < _bouncingBackTimes; ++i) {
         temp *= _bouncingBackRatio;
-        [values addObject:[NSNumber numberWithFloat:temp]];
+        CGFloat completedTemp = temp + tof;
+        [values addObject:[NSNumber numberWithFloat:completedTemp]];
     }
     [values insertObject:[NSNumber numberWithFloat:fromf] atIndex:0];
     
-    {//在values的所有值之间插入一个重点值tof
+    {//在values的所有值之间插入一个终点值tof
         NSMutableArray *completedValues = [NSMutableArray array];
         for (int i = 0; i < values.count; ++i) {
             [completedValues addObject:values[i]];
@@ -125,8 +126,8 @@
 }
 
 - (void)__setupTimingFunctions {
-    CAMediaTimingFunction *accelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:1 :0 :1 :0];
-    CAMediaTimingFunction *decelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0 :1 :0 :1];
+    CAMediaTimingFunction *accelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0.5 :0 :0.5 :0];
+    CAMediaTimingFunction *decelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0 :0.5 :0 :0.5];
     NSMutableArray *timingFunctions = [NSMutableArray array];
     for (int i = 0; i < _bouncingBackTimes; ++i) {
         [timingFunctions addObject:accelerateTimingFunc];
