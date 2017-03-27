@@ -9,7 +9,7 @@
 #import "BouncingAnimation.h"
 
 #define BOUNCING_BACK_RATIO 1.0/3.0
-#define BOUNCING_BACK_TIMES 4
+#define BOUNCING_BACK_TIMES 3
 #define DURATION 0.8
 
 @interface BouncingAnimation ()
@@ -56,6 +56,8 @@
     }
     anim.removedOnCompletion = NO;
     anim.fillMode = kCAFillModeForwards;
+    anim->_fromValue = fromValue;
+    anim->_toValue = toValue;
     [anim __doAllTheCalculations];
     anim.duration = DURATION;
     return anim;
@@ -91,11 +93,47 @@
 }
 
 - (void)__setupBouncingValues {
+    if ([_fromValue isKindOfClass:[NSNumber class]]) {
+        [self __CGFloatTypeValuesCalculation];
+    }
+    else {
+        
+    }
+}
+
+- (void)__CGFloatTypeValuesCalculation {
+    CGFloat fromf = [_fromValue floatValue];
+    CGFloat tof = [_toValue floatValue];
+    CGFloat temp = fromf;
+    NSMutableArray *values = [NSMutableArray array];
+    for (int i = 0; i < _bouncingBackTimes; ++i) {
+        temp *= _bouncingBackRatio;
+        [values addObject:[NSNumber numberWithFloat:temp]];
+    }
+    [values insertObject:[NSNumber numberWithFloat:fromf] atIndex:0];
     
+    {//在values的所有值之间插入一个重点值tof
+        NSMutableArray *completedValues = [NSMutableArray array];
+        for (int i = 0; i < values.count; ++i) {
+            [completedValues addObject:values[i]];
+            [completedValues addObject:[NSNumber numberWithFloat:tof]];
+        }
+        values = completedValues;
+    }
+    
+    self.values = [values copy];
 }
 
 - (void)__setupTimingFunctions {
-    
+    CAMediaTimingFunction *accelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:1 :0 :1 :0];
+    CAMediaTimingFunction *decelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0 :1 :0 :1];
+    NSMutableArray *timingFunctions = [NSMutableArray array];
+    for (int i = 0; i < _bouncingBackTimes; ++i) {
+        [timingFunctions addObject:accelerateTimingFunc];
+        [timingFunctions addObject:decelerateTimingFunc];
+    }
+    [timingFunctions addObject:accelerateTimingFunc];
+    self.timingFunctions = [timingFunctions copy];
 }
 
 @end
