@@ -15,6 +15,7 @@
 		E41BDD951E88A0E7001D0B79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41BDD931E88A0E7001D0B79 /* LaunchScreen.storyboard */; };
 		E41BDDA01E88A0E7001D0B79 /* BouncingAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E41BDD9F1E88A0E7001D0B79 /* BouncingAnimationTests.m */; };
 		E41BDDAB1E88A0E7001D0B79 /* BouncingAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E41BDDAA1E88A0E7001D0B79 /* BouncingAnimationUITests.m */; };
+		E41BDDBB1E88A3C0001D0B79 /* BouncingAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E41BDDBA1E88A3C0001D0B79 /* BouncingAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		E41BDDA61E88A0E7001D0B79 /* BouncingAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BouncingAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41BDDAA1E88A0E7001D0B79 /* BouncingAnimationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BouncingAnimationUITests.m; sourceTree = "<group>"; };
 		E41BDDAC1E88A0E7001D0B79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E41BDDB91E88A3C0001D0B79 /* BouncingAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BouncingAnimation.h; sourceTree = "<group>"; };
+		E41BDDBA1E88A3C0001D0B79 /* BouncingAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncingAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		E41BDD841E88A0E7001D0B79 /* BouncingAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				E41BDDB81E88A362001D0B79 /* Animation */,
 				E41BDD881E88A0E7001D0B79 /* AppDelegate.h */,
 				E41BDD891E88A0E7001D0B79 /* AppDelegate.m */,
 				E41BDD8B1E88A0E7001D0B79 /* ViewController.h */,
@@ -138,6 +142,15 @@
 				E41BDDAC1E88A0E7001D0B79 /* Info.plist */,
 			);
 			path = BouncingAnimationUITests;
+			sourceTree = "<group>";
+		};
+		E41BDDB81E88A362001D0B79 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				E41BDDB91E88A3C0001D0B79 /* BouncingAnimation.h */,
+				E41BDDBA1E88A3C0001D0B79 /* BouncingAnimation.m */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +292,7 @@
 				E41BDD8D1E88A0E7001D0B79 /* ViewController.m in Sources */,
 				E41BDD8A1E88A0E7001D0B79 /* AppDelegate.m in Sources */,
 				E41BDD871E88A0E7001D0B79 /* main.m in Sources */,
+				E41BDDBB1E88A3C0001D0B79 /* BouncingAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +530,7 @@
 				E41BDDB11E88A0E7001D0B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E41BDDB21E88A0E7001D0B79 /* Build configuration list for PBXNativeTarget "BouncingAnimationTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +539,7 @@
 				E41BDDB41E88A0E7001D0B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E41BDDB51E88A0E7001D0B79 /* Build configuration list for PBXNativeTarget "BouncingAnimationUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +548,7 @@
 				E41BDDB71E88A0E7001D0B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
