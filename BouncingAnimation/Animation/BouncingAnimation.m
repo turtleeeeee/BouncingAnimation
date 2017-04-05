@@ -8,7 +8,7 @@
 
 #import "BouncingAnimation.h"
 
-#define BOUNCING_BACK_RATIO 1.0/3.0
+#define BOUNCING_BACK_RATIO 1.0/5.0
 #define BOUNCING_BACK_TIMES 3
 #define DURATION 1
 
