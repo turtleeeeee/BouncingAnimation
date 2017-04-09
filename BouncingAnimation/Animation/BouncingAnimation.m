@@ -12,6 +12,13 @@
 #define BOUNCING_BACK_TIMES 3
 #define DURATION 1
 
+typedef NS_ENUM(NSUInteger, ValueType) {
+    ValueTypeCGPoint,
+    ValueTypeCGSize,
+    ValueTypeCGRect,
+    ValueTypeUnknow
+};
+
 @interface BouncingAnimation ()
 
 
@@ -97,10 +104,24 @@
         [self __CGFloatTypeValuesCalculation];
     }
     else {
-        
+        [self __NSValueTypeCalculation];
     }
 }
 
+- (void)__setupTimingFunctions {
+    CAMediaTimingFunction *accelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0.5 :0 :0.5 :0];
+    CAMediaTimingFunction *decelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0 :0.5 :0 :0.5];
+    NSMutableArray *timingFunctions = [NSMutableArray array];
+    for (int i = 0; i < _bouncingBackTimes; ++i) {
+        [timingFunctions addObject:accelerateTimingFunc];
+        [timingFunctions addObject:decelerateTimingFunc];
+    }
+    [timingFunctions addObject:accelerateTimingFunc];
+    self.timingFunctions = [timingFunctions copy];
+}
+
+#pragma mark -
+#pragma mark NSNumberCalculation
 - (void)__CGFloatTypeValuesCalculation {
     CGFloat fromf = [_fromValue floatValue];
     CGFloat tof = [_toValue floatValue];
@@ -125,16 +146,45 @@
     self.values = [values copy];
 }
 
-- (void)__setupTimingFunctions {
-    CAMediaTimingFunction *accelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0.5 :0 :0.5 :0];
-    CAMediaTimingFunction *decelerateTimingFunc = [CAMediaTimingFunction functionWithControlPoints:0 :0.5 :0 :0.5];
-    NSMutableArray *timingFunctions = [NSMutableArray array];
-    for (int i = 0; i < _bouncingBackTimes; ++i) {
-        [timingFunctions addObject:accelerateTimingFunc];
-        [timingFunctions addObject:decelerateTimingFunc];
+#pragma mark -
+#pragma mark NSValueCalculation
+- (void)__NSValueTypeCalculation {
+    ValueType type = [self __getTypeFromNSValue];
+    
+    switch (type) {
+        case ValueTypeCGPoint: {
+            
+            break;
+        }
+        case ValueTypeCGSize: {
+            
+            break;
+        }
+        case ValueTypeCGRect: {
+            
+            break;
+        }
+        default: {
+            NSLog(@"the type is unknown...");
+            break;
+        }
     }
-    [timingFunctions addObject:accelerateTimingFunc];
-    self.timingFunctions = [timingFunctions copy];
+    
+}
+
+- (ValueType)__getTypeFromNSValue {
+    ValueType type;
+    NSString *typeStr = [NSString stringWithUTF8String:[_fromValue objCType]];
+    if ([typeStr hasPrefix:@"{CGPoint"]) {
+        type = ValueTypeCGPoint;
+    } else if([typeStr hasPrefix:@"{CGSize"]){
+        type = ValueTypeCGSize;
+    } else if([typeStr hasPrefix:@"{CGRect"]) {
+        type = ValueTypeCGRect;
+    } else {
+        type = ValueTypeUnknow;
+    }
+    return type;
 }
 
 @end
