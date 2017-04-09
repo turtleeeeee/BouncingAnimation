@@ -244,6 +244,20 @@ typedef NS_ENUM(NSUInteger, ValueType) {
 - (void)__calculateCGRectTypeValues {
     CGRect fromr = [_fromValue CGRectValue];
     CGRect tor = [_toValue CGRectValue];
+    
+    NSArray *pointValues = [self __CGPointSegmentsCalculationWithFromPoint:fromr.origin toPoint:tor.origin];
+    NSArray *sizeValues = [self __CGSizeSegmentsCalculationWithFromSize:fromr.size toSize:tor.size];
+    
+    NSMutableArray *rectValues = [NSMutableArray array];
+    for (int i = 0; i < pointValues.count; ++i) {
+        CGPoint point = [pointValues[i] CGPointValue];
+        CGSize size = [sizeValues[i] CGSizeValue];
+        CGRect rect = CGRectMake(point.x, point.y, size.width, size.height);
+        
+        [rectValues addObject:[NSValue valueWithCGRect:rect]];
+    }
+    
+    self.values = [rectValues copy];
 }
 
 @end
