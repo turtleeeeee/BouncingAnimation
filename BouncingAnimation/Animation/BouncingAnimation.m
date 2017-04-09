@@ -235,11 +235,15 @@ typedef NS_ENUM(NSUInteger, ValueType) {
 }
 
 - (void)__calculateCGSizeTypeValues {
+    CGSize froms = [_fromValue CGSizeValue];
+    CGSize tos = [_toValue CGSizeValue];
     
+    self.values = [self __CGSizeSegmentsCalculationWithFromSize:froms toSize:tos];
 }
 
 - (void)__calculateCGRectTypeValues {
-    
+    CGRect fromr = [_fromValue CGRectValue];
+    CGRect tor = [_toValue CGRectValue];
 }
 
 @end
