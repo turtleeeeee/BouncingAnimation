@@ -120,11 +120,7 @@ typedef NS_ENUM(NSUInteger, ValueType) {
     self.timingFunctions = [timingFunctions copy];
 }
 
-#pragma mark -
-#pragma mark NSNumberCalculation
-- (void)__CGFloatTypeValuesCalculation {
-    CGFloat fromf = [_fromValue floatValue];
-    CGFloat tof = [_toValue floatValue];
+- (NSArray *)__CGFloatSegmentsCalculationWithFromFloat:(CGFloat)fromf toFloat:(CGFloat)tof {
     CGFloat temp = fromf - tof;
     NSMutableArray *values = [NSMutableArray array];
     for (int i = 0; i < _bouncingBackTimes; ++i) {
@@ -142,8 +138,16 @@ typedef NS_ENUM(NSUInteger, ValueType) {
         }
         values = completedValues;
     }
+    return [values copy];
+}
+
+#pragma mark -
+#pragma mark NSNumberCalculation
+- (void)__CGFloatTypeValuesCalculation {
+    CGFloat fromf = [_fromValue floatValue];
+    CGFloat tof = [_toValue floatValue];
     
-    self.values = [values copy];
+    self.values = [self __CGFloatSegmentsCalculationWithFromFloat:fromf toFloat:tof];
 }
 
 #pragma mark -
@@ -153,15 +157,15 @@ typedef NS_ENUM(NSUInteger, ValueType) {
     
     switch (type) {
         case ValueTypeCGPoint: {
-            
+            [self __calculateCGPointTypeValues];
             break;
         }
         case ValueTypeCGSize: {
-            
+            [self __calculateCGSizeTypeValues];
             break;
         }
         case ValueTypeCGRect: {
-            
+            [self __calculateCGRectTypeValues];
             break;
         }
         default: {
@@ -185,6 +189,57 @@ typedef NS_ENUM(NSUInteger, ValueType) {
         type = ValueTypeUnknow;
     }
     return type;
+}
+
+- (NSArray *)__CGPointSegmentsCalculationWithFromPoint:(CGPoint)fromp toPoint:(CGPoint)top {
+    
+    NSArray *xFloats = [self __CGFloatSegmentsCalculationWithFromFloat:fromp.x toFloat:top.x];
+    NSArray *yFloats = [self __CGFloatSegmentsCalculationWithFromFloat:fromp.y toFloat:top.y];
+    
+    NSMutableArray *values = [NSMutableArray array];
+    
+    for (int i = 0; i < xFloats.count; ++i) {
+        CGFloat x = [xFloats[i] floatValue];
+        CGFloat y = [yFloats[i] floatValue];
+        CGPoint point = CGPointMake(x, y);
+        
+        [values addObject:[NSValue valueWithCGPoint:point]];
+    }
+    
+    return [values copy];
+}
+
+- (NSArray *)__CGSizeSegmentsCalculationWithFromSize:(CGSize)froms toSize:(CGSize)tos {
+    
+    NSArray *wFloats = [self __CGFloatSegmentsCalculationWithFromFloat:froms.width toFloat:tos.height];
+    NSArray *hFloats = [self __CGFloatSegmentsCalculationWithFromFloat:froms.height toFloat:tos.height];
+    
+    NSMutableArray *values = [NSMutableArray array];
+    
+    for (int i = 0; i < wFloats.count; ++i) {
+        CGFloat w = [wFloats[i] floatValue];
+        CGFloat h = [hFloats[i] floatValue];
+        CGSize size = CGSizeMake(w, h);
+        
+        [values addObject:[NSValue valueWithCGSize:size]];
+    }
+    
+    return [values copy];
+}
+
+- (void)__calculateCGPointTypeValues {
+    CGPoint fromp = [_fromValue CGPointValue];
+    CGPoint top = [_toValue CGPointValue];
+    
+    self.values = [self __CGPointSegmentsCalculationWithFromPoint:fromp toPoint:top];
+}
+
+- (void)__calculateCGSizeTypeValues {
+    
+}
+
+- (void)__calculateCGRectTypeValues {
+    
 }
 
 @end
