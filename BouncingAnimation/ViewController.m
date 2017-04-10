@@ -19,17 +19,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    bounds.origin.x = bounds.size.width;
+    CGRect bounds = CGRectMake(50, 300, 50, 50);
     UIView *view = [[UIView alloc] initWithFrame:bounds];
     view.backgroundColor = [UIColor colorWithRed:0/255.0 green:124/255.0 blue:195/255.0 alpha:1.0];
     [self.view addSubview:view];
     _view = view;
 }
 - (IBAction)animateTrigger:(id)sender {
-    CGFloat scrWidth = [UIScreen mainScreen].bounds.size.width;
-    BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"position.x" fromValue:[NSNumber numberWithFloat:_view.layer.position.x] toValue:[NSNumber numberWithFloat:scrWidth/2]];
+    CATransform3D fromt = CATransform3DIdentity;
+    CATransform3D tot = CATransform3DMakeScale(1.2, 1.2, 1);
+    
+    BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"position" fromValue:[NSValue valueWithCATransform3D:fromt] toValue:[NSValue valueWithCATransform3D:tot]];
     [_view.layer addAnimation:anim forKey:@""];
+    
 }
 
 @end

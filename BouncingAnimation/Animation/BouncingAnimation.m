@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, ValueType) {
     ValueTypeCGPoint,
     ValueTypeCGSize,
     ValueTypeCGRect,
+    ValueTypeCATransform3D,
     ValueTypeUnknow
 };
 
@@ -168,6 +169,10 @@ typedef NS_ENUM(NSUInteger, ValueType) {
             [self __calculateCGRectTypeValues];
             break;
         }
+        case ValueTypeCATransform3D: {
+            [self __calculateCATransform3DTypeValues];
+            break;
+        }
         default: {
             NSLog(@"the type is unknown...");
             break;
@@ -185,6 +190,8 @@ typedef NS_ENUM(NSUInteger, ValueType) {
         type = ValueTypeCGSize;
     } else if([typeStr hasPrefix:@"{CGRect"]) {
         type = ValueTypeCGRect;
+    } else if([typeStr hasPrefix:@"{CATransform3D"]) {
+        type = ValueTypeCATransform3D;
     } else {
         type = ValueTypeUnknow;
     }
@@ -258,6 +265,10 @@ typedef NS_ENUM(NSUInteger, ValueType) {
     }
     
     self.values = [rectValues copy];
+}
+
+- (void)__calculateCATransform3DTypeValues {
+    
 }
 
 @end
