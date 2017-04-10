@@ -25,9 +25,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+  This component is a simple-to-use bouncing animation based on Core Animation. And it's merely a 2D animation on iOS platform.
                    DESC
 
-  s.homepage     = "https://github.com/dark19940411/BouncingAnimation"
+  s.homepage     = "https://github.com/dark19940411/BouncingAnimation.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -63,7 +64,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
+  s.platform     = :ios, "7.0"
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -79,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/dark19940411/BouncingAnimation", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/dark19940411/BouncingAnimation.git", :tag => "1.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -132,6 +133,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  s.framework = 'UIKit'
 
 end
