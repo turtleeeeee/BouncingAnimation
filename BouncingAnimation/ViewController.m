@@ -29,7 +29,9 @@
     CATransform3D fromt = CATransform3DIdentity;
     CATransform3D tot = CATransform3DMakeScale(2, 2, 1);
     
-    BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"transform" fromValue:[NSValue valueWithCATransform3D:fromt] toValue:[NSValue valueWithCATransform3D:tot]];
+    BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"transform"
+                                                            fromValue:[NSValue valueWithCATransform3D:fromt]
+                                                              toValue:[NSValue valueWithCATransform3D:tot]];
     [_view.layer addAnimation:anim forKey:@""];
     
 }
