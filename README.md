@@ -26,7 +26,7 @@ Use the public factory method to create custom bouncing animation. Here are some
                                                             fromValue:[NSValue valueWithCATransform3D:fromt]
                                                               toValue:[NSValue valueWithCATransform3D:tot]];
 
-[view.layer addAnimation:anim forKey:@""];                   
+	[view.layer addAnimation:anim forKey:@""];                   
 ```
 
 ![](/images/example1.gif)  
@@ -39,7 +39,7 @@ Use the public factory method to create custom bouncing animation. Here are some
                                                             fromValue:[NSNumber numberWithFloat:fromf]
                                                               toValue:[NSNumber numberWithFloat:tof]];
                                                               
-[view.layer addAnimation:anim forKey:@""];   
+	[view.layer addAnimation:anim forKey:@""];   
 ```
 
 ![](/images/example2.gif)  
@@ -52,7 +52,7 @@ Use the public factory method to create custom bouncing animation. Here are some
                                                             fromValue:[NSValue valueWithCGRect:fromr]
                                                               toValue:[NSValue valueWithCGRect:tor]];
                                                               
-[view.layer addAnimation:anim forKey:@""];   
+	[view.layer addAnimation:anim forKey:@""];   
 ```
 
 ![](/images/example3.gif)  
