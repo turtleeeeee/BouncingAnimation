@@ -19,13 +19,18 @@ After adding BouncingAnimation into your project, you can simply import `Bouncin
 ## How to use it?
 Use the public factory method to create custom bouncing animation. Here are some examples:  
 ```objc
-CATransform3D fromt = CATransform3DIdentity;
-    CATransform3D tot = CATransform3DMakeScale(2, 2, 1);
+	CATransform3D fromt = CATransform3DIdentity;
+	CATransform3D tot = CATransform3DMakeScale(2, 2, 1);
     
-    BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"transform"
+	BouncingAnimation *anim = [BouncingAnimation animationWithKeypath:@"transform"
                                                             fromValue:[NSValue valueWithCATransform3D:fromt]
                                                               toValue:[NSValue valueWithCATransform3D:tot]];
 ```
-![](/images/example1.gif)
+<div style="align: center">
+<img src="/images/example1.gif"/>
+</div>
+
+
+
 
 
