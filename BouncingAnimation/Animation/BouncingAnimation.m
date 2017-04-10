@@ -268,7 +268,32 @@ typedef NS_ENUM(NSUInteger, ValueType) {
 }
 
 - (void)__calculateCATransform3DTypeValues {
+    CATransform3D fromt = [_fromValue CATransform3DValue];
+    CATransform3D tot = [_toValue CATransform3DValue];
     
+    CGAffineTransform fromat = CATransform3DGetAffineTransform(fromt);
+    CGAffineTransform toat = CATransform3DGetAffineTransform(tot);
+    
+    NSArray *as = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.a toFloat:toat.a];
+    NSArray *bs = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.b toFloat:toat.b];
+    NSArray *cs = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.c toFloat:toat.c];
+    NSArray *ds = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.d toFloat:toat.d];
+    NSArray *txs = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.tx toFloat:toat.tx];
+    NSArray *tys = [self __CGFloatSegmentsCalculationWithFromFloat:fromat.ty toFloat:toat.ty];
+    
+    NSMutableArray *values = [NSMutableArray array];
+    for (int i = 0; i < as.count; ++i) {
+        CGAffineTransform transf = CGAffineTransformMake([as[i] floatValue],
+                                                         [bs[i] floatValue],
+                                                         [cs[i] floatValue],
+                                                         [ds[i] floatValue],
+                                                         [txs[i] floatValue],
+                                                         [tys[i] floatValue]);
+        
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeAffineTransform(transf)]];
+    }
+    
+    self.values = [values copy];
 }
 
 @end
