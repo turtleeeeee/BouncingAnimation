@@ -20,25 +20,7 @@ typedef NS_ENUM(NSUInteger, ValueType) {
     ValueTypeUnknow
 };
 
-@interface BouncingAnimation ()
-
-
-
-@end
-
-@implementation BouncingAnimation{
-    BOOL _useDefaults;
-}
-
-#pragma mark -
-#pragma mark Inheritance
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _useDefaults = true;
-    }
-    return self;
-}
+@implementation BouncingAnimation
 
 #pragma mark -
 #pragma mark Publics
@@ -57,11 +39,19 @@ typedef NS_ENUM(NSUInteger, ValueType) {
                    bouncingBackTimes:(NSInteger)times
 {
     BouncingAnimation *anim = [self animationWithKeyPath:keypath];
-    if (ratio == 0 || times == 0) {
-        anim->_useDefaults = YES;
+    if (ratio == 0) {
         anim->_bouncingBackRatio = BOUNCING_BACK_RATIO;
-        anim->_bouncingBackTimes = BOUNCING_BACK_TIMES;
     }
+    else {
+        anim->_bouncingBackRatio = ratio;
+    }
+    
+    if (times == 0) {
+        anim->_bouncingBackTimes = BOUNCING_BACK_TIMES;
+    }else {
+        anim->_bouncingBackTimes = times;
+    }
+    
     anim.removedOnCompletion = NO;
     anim.fillMode = kCAFillModeForwards;
     anim->_fromValue = fromValue;
